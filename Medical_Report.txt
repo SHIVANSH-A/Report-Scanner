@@ -1,0 +1,35 @@
+Medical Case Report  
+Patient ID: 682014  
+Name: James Patel  
+Age: 58  
+Gender: Male  
+Date of Report: 2024-12-07  
+
+Chief Complaint:  
+Patient reports frequent urination (especially at night), excessive thirst, and occasional blurry vision. He also notes fatigue and unintentional weight loss of 4 kg over the past 3 months.
+
+Medical History:  
+Family History: Strong history of diabetes on both maternal and paternal sides.  
+Personal Medical History:  
+Hypertension (Diagnosed at 52)  
+Lifestyle Factors: Sedentary, poor dietary habits, smoker (1 pack/day), high sugar intake.  
+Medications: Amlodipine 5 mg daily.  
+
+Recent Lab and Diagnostic Results:  
+Fasting Blood Sugar: 165 mg/dL  
+HbA1c: 8.1%  
+Lipid Profile: Total cholesterol 210 mg/dL, HDL 36 mg/dL, LDL 145 mg/dL  
+Urinalysis: Glucosuria present, no ketones.  
+
+Physical Examination Findings:  
+Vital Signs: BP 142/90 mmHg, HR 76 bpm, BMI 29.4  
+General: Mildly dehydrated, central obesity  
+Foot Exam: Decreased sensation in both feet  
+
+Diagnosis: Type 2 Diabetes Mellitus  
+Recommendations:  
+- Start Metformin 500 mg twice daily.  
+- Dietary modification (low-carb, low-sugar plan).  
+- Smoking cessation counseling.  
+- Begin walking 30 mins/day, 5 days/week.  
+- Follow-up in 4 weeks for glucose control review.  
