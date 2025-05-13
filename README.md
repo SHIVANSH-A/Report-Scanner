@@ -30,9 +30,9 @@
 ```
 ├── app.py                  # Main Flask backend
 ├── Utils/
-├── └── index.html          # UI for upload and result display
+├── └── agents.py          
 ├── templates/
-│   └── agents.py          
+│   └── index.html          # UI for upload and result display
 ├── Main.py
 ├── uploads/                # Temporary storage for uploaded files
 └── README.md
