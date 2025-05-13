@@ -1,0 +1,7 @@
+Flask==2.3.3
+langchain==0.1.14
+langchain-core==0.1.31
+langchain-groq==0.0.3
+groq==0.4.2
+python-dotenv==1.0.1
+requests==2.31.0
