@@ -1,89 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>ClariScan AI</title>
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4022/4022533.png" type="image/png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .glass {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>ClariScan AI</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4022/4022533.png" type="image/png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <style>
+    .glass-light {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    .glass-dark {
+      background: rgba(30, 30, 30, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-tr from-indigo-200 via-purple-200 to-pink-200 font-sans antialiased">
+<body class="transition-all duration-500 font-sans antialiased">
 
-    <div class="min-h-screen flex items-center justify-center px-4 py-10">
-        <div class="w-full max-w-4xl glass rounded-3xl shadow-2xl p-10 border border-white/30 transition-all duration-500 animate-fade-in">
+  <!-- Toggle Button -->
+  <div class="absolute top-4 right-6 z-10">
+    <button onclick="toggleTheme()" class="flex items-center gap-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white font-semibold py-2 px-4 rounded-full shadow hover:shadow-lg transition">
+      <span id="theme-icon">🌙</span> <span class="hidden sm:inline">Toggle Theme</span>
+    </button>
+  </div>
 
-            <!-- Title -->
-            <div class="mb-10 text-center">
-                <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 drop-shadow-md">ClariScan AI</h1>
-                <p class="text-gray-800 mt-2 text-lg font-medium">Smart Medical Report Analyzer</p>
-            </div>
+  <div id="page" class="min-h-screen flex items-center justify-center px-4 py-10 transition-all duration-500">
+    <div id="glass-card" class="w-full max-w-4xl rounded-3xl shadow-2xl p-10 border border-white/30 transition-all duration-500">
 
-            <!-- File Upload Form -->
-            <form method="POST" enctype="multipart/form-data" class="space-y-8">
-                <div>
-                    <label class="block text-sm font-semibold text-gray-800 mb-2" for="report">
-                        Upload your medical report (.txt)
-                    </label>
-                    <input 
-                        type="file" 
-                        name="report" 
-                        accept=".txt" 
-                        required
-                        class="block w-full px-4 py-3 text-sm text-gray-700 bg-white/80 border border-gray-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                    >
-                </div>
-                <div>
-                    <button 
-                        type="submit" 
-                        class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-indigo-600 hover:to-purple-700 transition duration-300 shadow-lg"
-                    >
-                        Analyze Report
-                    </button>
-                </div>
-            </form>
+      <!-- Title -->
+      <div class="mb-10 text-center">
+        <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 dark:from-indigo-300 dark:via-purple-300 dark:to-pink-300 drop-shadow-md">
+          ClariScan AI
+        </h1>
+        <p class="text-gray-800 dark:text-gray-200 mt-2 text-lg font-medium">Smart Medical Report Analyzer</p>
+      </div>
 
-            <!-- Final Diagnosis Section -->
-            {% if diagnosis %}
-                <div class="mt-12">
-                    <h3 class="text-2xl font-bold text-green-700 mb-4 text-center">✅ Final Diagnosis</h3>
-                    <div class="bg-white/80 border border-green-300 rounded-xl p-6 shadow-inner text-gray-800 space-y-4 text-base">
-                        {% for line in diagnosis.split('\n') %}
-                            {% if line.startswith('-') %}
-                                <p class="pl-4">• {{ line[1:] }}</p>
-                            {% elif ':' in line %}
-                                <p><span class="font-semibold">{{ line.split(':')[0] }}:</span> {{ line.split(':', 1)[1] }}</p>
-                            {% else %}
-                                <p>{{ line }}</p>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
-            {% endif %}
-
-            <!-- Error Message -->
-            {% if error %}
-                <div class="mt-6 text-center">
-                    <p class="text-red-600 font-semibold bg-white/70 px-4 py-2 inline-block rounded-lg shadow">
-                        ⚠️ {{ error }}
-                    </p>
-                </div>
-            {% endif %}
-
+      <!-- File Upload Form -->
+      <form method="POST" enctype="multipart/form-data" class="space-y-8">
+        <div>
+          <label class="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2" for="report">Upload your medical report (.txt)</label>
+          <input 
+            type="file" 
+            name="report" 
+            accept=".txt" 
+            required
+            class="block w-full px-4 py-3 text-sm text-gray-700 bg-white/80 dark:bg-gray-700 dark:text-white border border-gray-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          >
         </div>
-    </div>
+        <div>
+          <button 
+            type="submit" 
+            class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-indigo-600 hover:to-purple-700 transition duration-300 shadow-lg"
+          >
+            Analyze Report
+          </button>
+        </div>
+      </form>
 
-    <!-- Animation -->
-    <script>
-        document.querySelector('.animate-fade-in')?.classList.add('opacity-0');
-        window.addEventListener('load', () => {
-            document.querySelector('.animate-fade-in')?.classList.replace('opacity-0', 'opacity-100');
-        });
-    </script>
+      <!-- Diagnosis -->
+      {% if diagnosis %}
+      <div class="mt-12">
+        <h3 class="text-2xl font-bold text-green-700 dark:text-green-400 mb-4 text-center">✅ Final Diagnosis</h3>
+        <div class="bg-white/80 dark:bg-gray-700 border border-green-300 dark:border-green-500 rounded-xl p-6 shadow-inner text-gray-800 dark:text-white space-y-4 text-base">
+          {% for line in diagnosis.split('\n') %}
+            {% if line.startswith('-') %}
+              <p class="pl-4">• {{ line[1:] }}</p>
+            {% elif ':' in line %}
+              <p><span class="font-semibold">{{ line.split(':')[0] }}:</span> {{ line.split(':', 1)[1] }}</p>
+            {% else %}
+              <p>{{ line }}</p>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Error -->
+      {% if error %}
+      <div class="mt-6 text-center">
+        <p class="text-red-600 font-semibold bg-white/70 dark:bg-gray-700 px-4 py-2 inline-block rounded-lg shadow">
+          ⚠️ {{ error }}
+        </p>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+  <!-- Theme Script -->
+  <script>
+    const toggleTheme = () => {
+      const html = document.documentElement;
+      const page = document.getElementById('page');
+      const glass = document.getElementById('glass-card');
+      const icon = document.getElementById('theme-icon');
+
+      html.classList.toggle('dark');
+      const isDark = html.classList.contains('dark');
+
+      // Background gradient
+      page.className = isDark
+        ? 'min-h-screen flex items-center justify-center px-4 py-10 bg-gradient-to-tr from-gray-900 via-gray-800 to-gray-900'
+        : 'min-h-screen flex items-center justify-center px-4 py-10 bg-gradient-to-tr from-indigo-200 via-purple-200 to-pink-200';
+
+      // Glass effect class
+      glass.classList.remove('glass-light', 'glass-dark');
+      glass.classList.add(isDark ? 'glass-dark' : 'glass-light');
+
+      // Icon
+      icon.textContent = isDark ? '☀️' : '🌙';
+
+      // Persist theme
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    };
+
+    // Load saved theme
+    window.addEventListener('DOMContentLoaded', () => {
+      const theme = localStorage.getItem('theme');
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.getElementById('theme-icon').textContent = '☀️';
+        document.getElementById('page').className = 'min-h-screen flex items-center justify-center px-4 py-10 bg-gradient-to-tr from-gray-900 via-gray-800 to-gray-900';
+        document.getElementById('glass-card').classList.add('glass-dark');
+      } else {
+        document.getElementById('glass-card').classList.add('glass-light');
+      }
+    });
+  </script>
 </body>
 </html>
