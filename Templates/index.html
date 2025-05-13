@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MediScan AI – Smart Medical Report Analyzer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+    <div class="min-h-screen flex items-center justify-center px-4 py-10">
+        <div class="w-full max-w-4xl bg-white rounded-3xl shadow-xl p-10">
+            <!-- Title -->
+            <div class="mb-8 text-center">
+                <h1 class="text-4xl font-bold text-indigo-700">MediScan AI</h1>
+                <p class="text-gray-600 mt-2 text-lg">Smart Medical Report Analyzer</p>
+            </div>
+
+            <!-- File Upload Form -->
+            <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2" for="report">Upload your medical report (.txt)</label>
+                    <input 
+                        type="file" 
+                        name="report" 
+                        accept=".txt" 
+                        required
+                        class="block w-full px-4 py-3 text-sm text-gray-700 bg-gray-100 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    >
+                </div>
+                <div>
+                    <button 
+                        type="submit" 
+                        class="w-full bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-indigo-700 transition duration-300 shadow-md"
+                    >
+                        Analyze Report
+                    </button>
+                </div>
+            </form>
+
+            <!-- Final Diagnosis Section -->
+            {% if diagnosis %}
+                <div class="mt-10">
+                    <h3 class="text-2xl font-semibold text-green-600 mb-4">Final Diagnosis</h3>
+                    <div class="bg-gray-50 border border-green-300 rounded-lg p-6 shadow-inner text-gray-800 space-y-3 leading-relaxed text-base">
+                        {% for line in diagnosis.split('\n') %}
+                            {% if line.startswith('-') %}
+                                <p class="pl-4">• {{ line[1:] }}</p>
+                            {% elif ':' in line %}
+                                <p><span class="font-semibold">{{ line.split(':')[0] }}:</span> {{ line.split(':', 1)[1] }}</p>
+                            {% else %}
+                                <p>{{ line }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Error Message -->
+            {% if error %}
+                <p class="mt-6 text-red-600 font-medium text-center">{{ error }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
