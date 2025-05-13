@@ -3,33 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>ClariScan AI</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4022/4022533.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
 </head>
-<body class="bg-gray-50 font-sans antialiased">
+<body class="bg-gradient-to-tr from-indigo-200 via-purple-200 to-pink-200 font-sans antialiased">
+
     <div class="min-h-screen flex items-center justify-center px-4 py-10">
-        <div class="w-full max-w-4xl bg-white rounded-3xl shadow-xl p-10">
+        <div class="w-full max-w-4xl glass rounded-3xl shadow-2xl p-10 border border-white/30 transition-all duration-500 animate-fade-in">
+
             <!-- Title -->
-            <div class="mb-8 text-center">
-                <h1 class="text-4xl font-bold text-indigo-700">ClariScan AI</h1>
-                <p class="text-gray-600 mt-2 text-lg">Smart Medical Report Analyzer</p>
+            <div class="mb-10 text-center">
+                <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 drop-shadow-md">ClariScan AI</h1>
+                <p class="text-gray-800 mt-2 text-lg font-medium">Smart Medical Report Analyzer</p>
             </div>
 
             <!-- File Upload Form -->
-            <form method="POST" enctype="multipart/form-data" class="space-y-6">
+            <form method="POST" enctype="multipart/form-data" class="space-y-8">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2" for="report">Upload your medical report (.txt)</label>
+                    <label class="block text-sm font-semibold text-gray-800 mb-2" for="report">
+                        Upload your medical report (.txt)
+                    </label>
                     <input 
                         type="file" 
                         name="report" 
                         accept=".txt" 
                         required
-                        class="block w-full px-4 py-3 text-sm text-gray-700 bg-gray-100 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                        class="block w-full px-4 py-3 text-sm text-gray-700 bg-white/80 border border-gray-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     >
                 </div>
                 <div>
                     <button 
                         type="submit" 
-                        class="w-full bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-indigo-700 transition duration-300 shadow-md"
+                        class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-indigo-600 hover:to-purple-700 transition duration-300 shadow-lg"
                     >
                         Analyze Report
                     </button>
@@ -38,9 +50,9 @@
 
             <!-- Final Diagnosis Section -->
             {% if diagnosis %}
-                <div class="mt-10">
-                    <h3 class="text-2xl font-semibold text-green-600 mb-4">Final Diagnosis</h3>
-                    <div class="bg-gray-50 border border-green-300 rounded-lg p-6 shadow-inner text-gray-800 space-y-3 leading-relaxed text-base">
+                <div class="mt-12">
+                    <h3 class="text-2xl font-bold text-green-700 mb-4 text-center">✅ Final Diagnosis</h3>
+                    <div class="bg-white/80 border border-green-300 rounded-xl p-6 shadow-inner text-gray-800 space-y-4 text-base">
                         {% for line in diagnosis.split('\n') %}
                             {% if line.startswith('-') %}
                                 <p class="pl-4">• {{ line[1:] }}</p>
@@ -56,9 +68,22 @@
 
             <!-- Error Message -->
             {% if error %}
-                <p class="mt-6 text-red-600 font-medium text-center">{{ error }}</p>
+                <div class="mt-6 text-center">
+                    <p class="text-red-600 font-semibold bg-white/70 px-4 py-2 inline-block rounded-lg shadow">
+                        ⚠️ {{ error }}
+                    </p>
+                </div>
             {% endif %}
+
         </div>
     </div>
+
+    <!-- Animation -->
+    <script>
+        document.querySelector('.animate-fade-in')?.classList.add('opacity-0');
+        window.addEventListener('load', () => {
+            document.querySelector('.animate-fade-in')?.classList.replace('opacity-0', 'opacity-100');
+        });
+    </script>
 </body>
 </html>
