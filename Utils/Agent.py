@@ -1,5 +1,10 @@
 from langchain_core.prompts import PromptTemplate
 from langchain_groq import ChatGroq
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from a .env file
+load_dotenv()
 
 
 class Agent:
@@ -10,7 +15,7 @@ class Agent:
         self.prompt_template = self.create_prompt_template()
 
         self.model = ChatGroq(
-            api_key = "API_KEY",
+            api_key = os.getenv("API_KEY"),
             model = "llama-3.3-70b-versatile",
             temperature=0.0
         )
